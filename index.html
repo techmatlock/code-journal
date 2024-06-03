@@ -24,7 +24,6 @@
       </div>
     </header>
     <main class="container">
-      <div class="row"></div>
       <div data-view="entry-form">
         <form>
           <div class="row">
@@ -48,14 +47,17 @@
           </div>
           <div class="row">
             <div class="column-full">
-              <label for="notes">
-                Notes
-                <textarea
-                  name="notes"
-                  id="new-note"
-                  cols="30"
-                  rows="10"></textarea>
-              </label>
+              <label for="notes" class="notes-label">Notes</label>
+              <textarea
+                name="notes"
+                id="new-note"
+                cols="30"
+                rows="10"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full row flex-end">
+              <button class="save-btn">Save</button>
             </div>
           </div>
         </form>
