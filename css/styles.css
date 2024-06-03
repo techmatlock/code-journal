@@ -1,7 +1,35 @@
+label,
+input,
+textarea {
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+}
+
+label,
+input {
+  padding-bottom: 0.5rem;
+}
+
+input {
+  margin-bottom: 0.5rem;
+}
+
+/* Header */
+
 .header-bg {
   background-color: #4c2676;
 }
 
 .header-text {
   color: #fff;
+}
+
+/* Form */
+
+.form-img {
+  max-width: 100%;
 }
