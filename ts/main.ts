@@ -26,14 +26,20 @@ $form.addEventListener('submit', (event: Event): void => {
   const title = $formElements.title.value;
   const photoUrl = $formElements.photo.value;
   const note = $formElements.notes.value;
+  const entryId = 0;
 
   const result = {
     title,
     photoUrl,
     note,
+    entryId,
   };
 
+  result.entryId = data.nextEntryId;
+
   data.entries.unshift(result);
+
+  data.nextEntryId++;
 
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 
