@@ -19,4 +19,7 @@ const data: Data = {
   nextEntryId: 1,
 };
 
-console.log(data);
+window.addEventListener('beforeunload', (): void => {
+  const jsonData = JSON.stringify(data);
+  localStorage.setItem('javascript-local-storage', jsonData);
+});

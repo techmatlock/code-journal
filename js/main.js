@@ -12,7 +12,6 @@ $photoInput?.addEventListener('input', (event) => {
 $form.addEventListener('submit', (event) => {
   event.preventDefault();
   const $formElements = $form.elements;
-  console.log('$formElements:', $formElements);
   const title = $formElements.title.value;
   const photoUrl = $formElements.photo.value;
   const note = $formElements.notes.value;

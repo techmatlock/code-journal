@@ -23,8 +23,6 @@ $form.addEventListener('submit', (event: Event): void => {
 
   const $formElements = $form.elements as FormElements;
 
-  console.log('$formElements:', $formElements);
-
   const title = $formElements.title.value;
   const photoUrl = $formElements.photo.value;
   const note = $formElements.notes.value;
