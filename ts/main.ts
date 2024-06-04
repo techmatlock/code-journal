@@ -43,3 +43,38 @@ $form.addEventListener('submit', (event: Event): void => {
 
   $form.reset();
 });
+
+const renderEntry = (entry: Journal): HTMLLIElement => {
+  const $outerLiElement = document.createElement('li');
+  $outerLiElement.setAttribute('class', 'row');
+
+  const $div1 = document.createElement('div');
+  $div1.setAttribute('class', 'column-half padding-lr');
+
+  $outerLiElement.appendChild($div1);
+
+  const $img = document.createElement('img');
+  $img.setAttribute('class', 'entry-img');
+  $img.setAttribute('src', entry.photoUrl);
+  $img.setAttribute('alt', 'a placeholder image');
+
+  $outerLiElement.appendChild($div1);
+  $div1.appendChild($img);
+
+  const $div2 = document.createElement('div');
+  $div2.setAttribute('class', 'column-half padding-lr');
+
+  const $p = document.createElement('p');
+  $p.setAttribute('class', 'bold');
+  $p.textContent = entry.title;
+
+  const $p2 = document.createElement('p');
+  $p2.textContent = entry.note;
+
+  $div2.appendChild($p);
+  $p.appendChild($p2);
+
+  $div1.appendChild($div2);
+
+  return $outerLiElement;
+}
