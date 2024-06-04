@@ -36,9 +36,10 @@ button {
   color: #fff;
 }
 
-.smaller-header-text {
+.smaller-header-text > a {
   color: #fff;
   margin-left: 0.5rem;
+  text-decoration: none;
 }
 
 /* Form */

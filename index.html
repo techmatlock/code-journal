@@ -18,8 +18,11 @@
   <body>
     <header class="header-bg">
       <div class="container">
-        <div class="row column-full">
-          <h2 class="header-text">Code Journal</h2>
+        <div class="row">
+          <div class="column-full row align-center">
+            <h2 class="header-text">Code Journal</h2>
+            <h4 class="smaller-header-text"><a href="">Entries</a></h4>
+          </div>
         </div>
       </div>
     </header>
@@ -62,7 +65,40 @@
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden"></div>
+      <div data-view="entries" class="hidden">
+        <div class="row">
+          <div class="column-full row space-between align-center">
+            <h2>Entries</h2>
+            <button class="new-btn">New</button>
+          </div>
+        </div>
+        <ul class="entries-list">
+          <li class="row">
+            <div class="column-half padding-lr">
+              <img
+                class="entry-img"
+                src="images/bearded-dragon-cowboy.jpeg"
+                alt="a bearded dragon with cowboy hat" />
+            </div>
+            <div class="column-half padding-lr">
+              <p class="bold">Cowboy Bearded Dragon</p>
+              <p>A bearded dragon having some fun!</p>
+            </div>
+          </li>
+          <li class="row">
+            <div class="column-half padding-lr">
+              <img
+                class="entry-img"
+                src="images/frog-hat.jpeg"
+                alt="a bearded dragon with cowboy hat" />
+            </div>
+            <div class="column-half padding-lr">
+              <p class="bold">Cowboy Bearded Dragon</p>
+              <p>A bearded dragon having some fun!</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>

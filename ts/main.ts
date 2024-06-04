@@ -8,9 +8,11 @@ interface FormElements extends HTMLFormControlsCollection {
 const $form = document.querySelector('.journal-form') as HTMLFormElement;
 const $photoInput = document.querySelector('.photo-input') as HTMLInputElement;
 const $photoPreview = document.querySelector('.form-img');
+const $ulElement = document.querySelector('.entries-list');
 
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
+if (!$ulElement) throw new Error('$ulElement does not exist.');
 
 $photoInput?.addEventListener('input', (event: Event): void => {
   const eventTarget = event.target as HTMLInputElement;
@@ -72,9 +74,16 @@ const renderEntry = (entry: Journal): HTMLLIElement => {
   $p2.textContent = entry.note;
 
   $div2.appendChild($p);
-  $p.appendChild($p2);
+  $div2.appendChild($p2);
 
   $div1.appendChild($div2);
 
   return $outerLiElement;
-}
+};
+
+document.addEventListener('DOMContentLoaded', (): void => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const newData = renderEntry(data.entries[i]);
+    $ulElement.append(newData);
+  }
+});
