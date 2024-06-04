@@ -26,7 +26,7 @@ $form.addEventListener('submit', (event: Event): void => {
   const title = $formElements.title.value;
   const photoUrl = $formElements.photo.value;
   const note = $formElements.notes.value;
-  const entryId = 0;
+  const entryId = data.nextEntryId;
 
   const result = {
     title,
@@ -34,8 +34,6 @@ $form.addEventListener('submit', (event: Event): void => {
     note,
     entryId,
   };
-
-  result.entryId = data.nextEntryId;
 
   data.entries.unshift(result);
 
