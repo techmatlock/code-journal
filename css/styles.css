@@ -22,6 +22,10 @@ button {
   margin-top: 0.5rem;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* Header */
 
 .header-bg {
@@ -30,6 +34,11 @@ button {
 
 .header-text {
   color: #fff;
+}
+
+.smaller-header-text {
+  color: #fff;
+  margin-left: 0.5rem;
 }
 
 /* Form */
@@ -48,4 +57,24 @@ button {
 
 .notes-label {
   padding-top: 1rem;
+}
+
+/* Entries */
+
+.new-btn {
+  background-color: #4c2676;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.entry-img {
+  max-width: 100%;
+}
+
+.entries-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }

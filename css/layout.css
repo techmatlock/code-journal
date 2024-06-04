@@ -22,9 +22,39 @@
   justify-content: flex-end;
 }
 
+.align-center {
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+@media screen and (width <= 375px) {
+  .column-half {
+    flex-basis: 50%;
+  }
+
+  li {
+    flex-direction: column;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
 @media screen and (width >= 768px) {
   .container {
     max-width: 900px;
+  }
+
+  li {
+    flex-direction: row;
   }
 
   .padding-lr {
