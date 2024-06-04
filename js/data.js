@@ -1,8 +1,8 @@
-"use strict";
-/* exported data */
-let data = {
-    view: 'entry-form',
-    entries: [],
-    editing: null,
-    nextEntryId: 1,
+'use strict';
+const data = {
+  view: 'entry-form',
+  entries: [],
+  editing: null,
+  nextEntryId: 1,
 };
+console.log(data);
