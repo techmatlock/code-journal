@@ -15,20 +15,23 @@
 
 .column-full,
 .column-half {
-  width: 100%;
+  flex-basis: 100%;
 }
 
-@media screen and (min-width: 768px) {
+.flex-end {
+  justify-content: flex-end;
+}
+
+@media screen and (width >= 768px) {
   .container {
     max-width: 900px;
   }
 
-  .column-full,
-  .column-half {
+  .padding-lr {
     padding: 0 0.75rem;
   }
 
   .column-half {
-    width: 50%;
+    flex-basis: 50%;
   }
 }
