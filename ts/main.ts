@@ -56,7 +56,7 @@ $form.addEventListener('submit', (event: Event): void => {
   $form.reset();
 
   const newEntry = renderEntry(result);
-  $ulElement.appendChild(newEntry);
+  $ulElement.prepend(newEntry);
   viewSwap('entries');
   toggleNoEntries();
 });

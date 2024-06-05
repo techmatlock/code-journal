@@ -39,7 +39,7 @@ $form.addEventListener('submit', (event) => {
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
   const newEntry = renderEntry(result);
-  $ulElement.appendChild(newEntry);
+  $ulElement.prepend(newEntry);
   viewSwap('entries');
   toggleNoEntries();
 });
