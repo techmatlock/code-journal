@@ -6,12 +6,14 @@ const $ulElement = document.querySelector('.entries-list');
 const $liElement = document.querySelector('.no-entries');
 const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
+const $anchorLink = document.querySelector('.entries-link');
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
 if (!$ulElement) throw new Error('$ulElement does not exist.');
 if (!$liElement) throw new Error('$liElement does not exist.');
 if (!$formDiv) throw new Error('$formDiv does not exist.');
 if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
+if (!$anchorLink) throw new Error('$anchorLink does not exist.');
 $photoInput?.addEventListener('input', (event) => {
   const eventTarget = event.target;
   const photoUrl = eventTarget.value;
@@ -82,4 +84,6 @@ const viewSwap = (view) => {
   }
 };
 toggleNoEntries();
-viewSwap('entries');
+$anchorLink.addEventListener('click', () => {
+  viewSwap('entries');
+});
