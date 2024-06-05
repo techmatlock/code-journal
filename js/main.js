@@ -72,11 +72,13 @@ const renderEntry = (entry) => {
   $p2.textContent = entry.note;
   $div2.appendChild($p);
   $div2.appendChild($p2);
-  $div1.appendChild($div2);
+  $outerLiElement.appendChild($div2);
   return $outerLiElement;
 };
 const toggleNoEntries = () => {
-  if (data.entries !== null) {
+  if (data.entries.length === 0) {
+    $liElement.classList.remove('hidden');
+  } else {
     $liElement.classList.add('hidden');
   }
 };

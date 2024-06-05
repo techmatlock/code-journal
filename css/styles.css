@@ -69,6 +69,7 @@ button {
   padding: 0.5rem;
   border-radius: 0.25rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .entry-img {
@@ -79,4 +80,8 @@ button {
   margin: 0;
   padding: 0;
   list-style-type: none;
+}
+
+.entries-link {
+  cursor: pointer;
 }
