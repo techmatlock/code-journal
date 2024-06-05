@@ -10,17 +10,15 @@ const $photoInput = document.querySelector('.photo-input') as HTMLInputElement;
 const $photoPreview = document.querySelector('.form-img');
 const $ulElement = document.querySelector('.entries-list');
 const $liElement = document.querySelector('.no-entries');
-const $entryLink = document.querySelector('.entries-link');
-const $entryFormDiv = document.querySelector('div[data-view="entry-form"]');
+const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
 
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
 if (!$ulElement) throw new Error('$ulElement does not exist.');
 if (!$liElement) throw new Error('$liElement does not exist.');
-if (!$entryLink) throw new Error('$entryLink does not exist.');
-if (!$entryFormDiv) throw new Error('$entryLink does not exist.');
-if (!$entriesDiv) throw new Error('$entryLink does not exist.');
+if (!$formDiv) throw new Error('$formDiv does not exist.');
+if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
 
 $photoInput?.addEventListener('input', (event: Event): void => {
   const eventTarget = event.target as HTMLInputElement;
@@ -106,13 +104,13 @@ const viewSwap = (view: string): void => {
   data.view = view;
 
   if (view === 'entries') {
-    $entryFormDiv.className = 'hidden';
+    $formDiv.className = 'hidden';
     $entriesDiv.className = '';
   }
 
   if (view === 'entry-form') {
     $entriesDiv.className = 'hidden';
-    $entryFormDiv.className = '';
+    $formDiv.className = '';
   }
 };
 
