@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', (): void => {
 const renderEntry = (entry: Journal): HTMLLIElement => {
   const $outerLiElement = document.createElement('li');
   $outerLiElement.setAttribute('class', 'row');
+  $outerLiElement.setAttribute('data-entry-id', entry.entryId.toString());
 
   const $div1 = document.createElement('div');
   $div1.setAttribute('class', 'column-half padding-lr');
@@ -92,13 +93,17 @@ const renderEntry = (entry: Journal): HTMLLIElement => {
   $div2.setAttribute('class', 'column-half padding-lr');
 
   const $p = document.createElement('p');
-  $p.setAttribute('class', 'bold');
+  $p.setAttribute('class', 'bold row space-between');
   $p.textContent = entry.title;
+
+  const $pencil = document.createElement('i');
+  $pencil.setAttribute('class', 'fa-solid fa-pencil');
 
   const $p2 = document.createElement('p');
   $p2.textContent = entry.note;
 
   $div2.appendChild($p);
+  $p.appendChild($pencil);
   $div2.appendChild($p2);
 
   $outerLiElement.appendChild($div2);
