@@ -46,7 +46,7 @@ $form.addEventListener('submit', (event) => {
 document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {
     const newData = renderEntry(data.entries[i]);
-    $ulElement.append(newData);
+    $ulElement.prepend(newData);
   }
   viewSwap(data.view);
   toggleNoEntries();
@@ -103,4 +103,22 @@ $anchorLink.addEventListener('click', () => {
 });
 $newBtn.addEventListener('click', () => {
   viewSwap('entry-form');
+});
+$ulElement.addEventListener('click', (event) => {
+  const $eventTarget = event.target;
+  if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
+    viewSwap('entry-form');
+    const dataEntryId = Number(
+      $eventTarget.closest('li')?.getAttribute('data-entry-id'),
+    );
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === dataEntryId) {
+        data.editing = data.entries[i];
+        const $formElements = $form.elements;
+        $formElements.title.value = data.editing.title;
+        $formElements.photo.value = data.editing.photoUrl;
+        $formElements.notes.value = data.editing.note;
+      }
+    }
+  }
 });

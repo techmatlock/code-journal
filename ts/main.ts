@@ -64,7 +64,7 @@ $form.addEventListener('submit', (event: Event): void => {
 document.addEventListener('DOMContentLoaded', (): void => {
   for (let i = 0; i < data.entries.length; i++) {
     const newData = renderEntry(data.entries[i]);
-    $ulElement.append(newData);
+    $ulElement.prepend(newData);
   }
 
   viewSwap(data.view);
@@ -141,4 +141,28 @@ $anchorLink.addEventListener('click', (): void => {
 
 $newBtn.addEventListener('click', (): void => {
   viewSwap('entry-form');
+});
+
+$ulElement.addEventListener('click', (event: Event): void => {
+  const $eventTarget = event.target as HTMLElement;
+
+  if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
+    viewSwap('entry-form');
+
+    const dataEntryId = Number(
+      $eventTarget.closest('li')?.getAttribute('data-entry-id'),
+    );
+
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === dataEntryId) {
+        data.editing = data.entries[i];
+
+        const $formElements = $form.elements as FormElements;
+
+        $formElements.title.value = data.editing.title;
+        $formElements.photo.value = data.editing.photoUrl;
+        $formElements.notes.value = data.editing.note;
+      }
+    }
+  }
 });
