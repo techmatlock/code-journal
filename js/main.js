@@ -31,6 +31,12 @@ $form.addEventListener('submit', (event) => {
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
 });
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const newData = renderEntry(data.entries[i]);
+    $ulElement.append(newData);
+  }
+});
 const renderEntry = (entry) => {
   const $outerLiElement = document.createElement('li');
   $outerLiElement.setAttribute('class', 'row');
@@ -60,10 +66,8 @@ const toggleNoEntries = () => {
     $liElement.classList.add('hidden');
   }
 };
-document.addEventListener('DOMContentLoaded', () => {
-  for (let i = 0; i < data.entries.length; i++) {
-    const newData = renderEntry(data.entries[i]);
-    $ulElement.append(newData);
-  }
-});
+const viewSwap = (view) => {
+  data.view = view;
+};
 toggleNoEntries();
+viewSwap('entries');

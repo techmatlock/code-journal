@@ -48,6 +48,13 @@ $form.addEventListener('submit', (event: Event): void => {
   $form.reset();
 });
 
+document.addEventListener('DOMContentLoaded', (): void => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const newData = renderEntry(data.entries[i]);
+    $ulElement.append(newData);
+  }
+});
+
 const renderEntry = (entry: Journal): HTMLLIElement => {
   const $outerLiElement = document.createElement('li');
   $outerLiElement.setAttribute('class', 'row');
@@ -89,11 +96,10 @@ const toggleNoEntries = (): void => {
   }
 };
 
-document.addEventListener('DOMContentLoaded', (): void => {
-  for (let i = 0; i < data.entries.length; i++) {
-    const newData = renderEntry(data.entries[i]);
-    $ulElement.append(newData);
-  }
-});
+const viewSwap = (view: string): void => {
+  data.view = view;
+};
 
 toggleNoEntries();
+
+viewSwap('entries');
