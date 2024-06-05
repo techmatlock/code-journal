@@ -20,7 +20,7 @@ let data: Data = {
   nextEntryId: 1,
 };
 
-const previousDataJson = localStorage.getItem('javascript-local-storage');
+// const previousDataJson = localStorage.getItem('javascript-local-storage');
 
 if (previousDataJson !== null) {
   data = JSON.parse(previousDataJson);
