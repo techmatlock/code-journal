@@ -4,10 +4,16 @@ const $photoInput = document.querySelector('.photo-input');
 const $photoPreview = document.querySelector('.form-img');
 const $ulElement = document.querySelector('.entries-list');
 const $liElement = document.querySelector('.no-entries');
+const $entryLink = document.querySelector('.entries-link');
+const $entryFormDiv = document.querySelector('div[data-view="entry-form"]');
+const $entriesDiv = document.querySelector('div[data-view="entries"]');
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
 if (!$ulElement) throw new Error('$ulElement does not exist.');
 if (!$liElement) throw new Error('$liElement does not exist.');
+if (!$entryLink) throw new Error('$entryLink does not exist.');
+if (!$entryFormDiv) throw new Error('$entryLink does not exist.');
+if (!$entriesDiv) throw new Error('$entryLink does not exist.');
 $photoInput?.addEventListener('input', (event) => {
   const eventTarget = event.target;
   const photoUrl = eventTarget.value;
@@ -68,6 +74,14 @@ const toggleNoEntries = () => {
 };
 const viewSwap = (view) => {
   data.view = view;
+  if (view === 'entries') {
+    $entryFormDiv.className = 'hidden';
+    $entriesDiv.className = '';
+  }
+  if (view === 'entry-form') {
+    $entriesDiv.className = 'hidden';
+    $entryFormDiv.className = '';
+  }
 };
 toggleNoEntries();
 viewSwap('entries');
