@@ -3,54 +3,21 @@ const $form = document.querySelector('.journal-form');
 const $photoInput = document.querySelector('.photo-input');
 const $photoPreview = document.querySelector('.form-img');
 const $ulElement = document.querySelector('.entries-list');
-const $liElement = document.querySelector('.no-entries');
+const $noEntries = document.querySelector('.no-entries');
 const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
 const $anchorLink = document.querySelector('.entries-link');
 const $newBtn = document.querySelector('.new-btn');
+const $entryTitle = document.querySelector('.entry-title');
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
 if (!$ulElement) throw new Error('$ulElement does not exist.');
-if (!$liElement) throw new Error('$liElement does not exist.');
+if (!$noEntries) throw new Error('$liElement does not exist.');
 if (!$formDiv) throw new Error('$formDiv does not exist.');
 if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
 if (!$anchorLink) throw new Error('$anchorLink does not exist.');
 if (!$newBtn) throw new Error('$newBtn does not exist.');
-$photoInput?.addEventListener('input', (event) => {
-  const eventTarget = event.target;
-  const photoUrl = eventTarget.value;
-  $photoPreview.setAttribute('src', photoUrl);
-});
-$form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const $formElements = $form.elements;
-  const title = $formElements.title.value;
-  const photoUrl = $formElements.photo.value;
-  const note = $formElements.notes.value;
-  const entryId = data.nextEntryId;
-  const result = {
-    title,
-    photoUrl,
-    note,
-    entryId,
-  };
-  data.entries.unshift(result);
-  data.nextEntryId++;
-  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $form.reset();
-  const newEntry = renderEntry(result);
-  $ulElement.prepend(newEntry);
-  viewSwap('entries');
-  toggleNoEntries();
-});
-document.addEventListener('DOMContentLoaded', () => {
-  for (let i = 0; i < data.entries.length; i++) {
-    const newData = renderEntry(data.entries[i]);
-    $ulElement.prepend(newData);
-  }
-  viewSwap(data.view);
-  toggleNoEntries();
-});
+if (!$entryTitle) throw new Error('$entryTitle does not exist.');
 const renderEntry = (entry) => {
   const $outerLiElement = document.createElement('li');
   $outerLiElement.setAttribute('class', 'row');
@@ -81,9 +48,9 @@ const renderEntry = (entry) => {
 };
 const toggleNoEntries = () => {
   if (data.entries.length === 0) {
-    $liElement.classList.remove('hidden');
+    $noEntries.classList.remove('hidden');
   } else {
-    $liElement.classList.add('hidden');
+    $noEntries.classList.add('hidden');
   }
 };
 const viewSwap = (view) => {
@@ -98,6 +65,62 @@ const viewSwap = (view) => {
   }
 };
 toggleNoEntries();
+$photoInput?.addEventListener('input', (event) => {
+  const eventTarget = event.target;
+  const photoUrl = eventTarget.value;
+  $photoPreview.setAttribute('src', photoUrl);
+});
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const $formElements = $form.elements;
+  const title = $formElements.title.value;
+  const photoUrl = $formElements.photo.value;
+  const note = $formElements.notes.value;
+  const entryId = data.nextEntryId;
+  const result = {
+    title,
+    photoUrl,
+    note,
+    entryId,
+  };
+  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  if (data.editing === null) {
+    const newEntry = renderEntry(result);
+    $ulElement.prepend(newEntry);
+    data.entries.unshift(result);
+    data.nextEntryId++;
+    viewSwap('entries');
+    toggleNoEntries();
+  } else {
+    const $allLiElements = document.querySelectorAll('li');
+    if (!$allLiElements) throw new Error('$allLiElements does not exist.');
+    result.entryId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === result.entryId) {
+        data.entries[i] = result;
+      }
+    }
+    const replacingEntry = renderEntry(result);
+    $allLiElements.forEach((li) => {
+      if (Number(li.getAttribute('data-entry-id')) === result.entryId) {
+        li.replaceWith(replacingEntry);
+      }
+    });
+    $entryTitle.textContent = 'New Entry';
+    data.editing = null;
+    viewSwap('entries');
+    toggleNoEntries();
+  }
+  $form.reset();
+});
+document.addEventListener('DOMContentLoaded', () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    const newData = renderEntry(data.entries[i]);
+    $ulElement.prepend(newData);
+  }
+  viewSwap(data.view);
+  toggleNoEntries();
+});
 $anchorLink.addEventListener('click', () => {
   viewSwap('entries');
 });
@@ -118,6 +141,7 @@ $ulElement.addEventListener('click', (event) => {
         $formElements.title.value = data.editing.title;
         $formElements.photo.value = data.editing.photoUrl;
         $formElements.notes.value = data.editing.note;
+        $photoPreview.setAttribute('src', data.editing.photoUrl);
       }
     }
   }
