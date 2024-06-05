@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const newData = renderEntry(data.entries[i]);
     $ulElement.append(newData);
   }
+  viewSwap(data.view);
+  toggleNoEntries();
 });
 const renderEntry = (entry) => {
   const $outerLiElement = document.createElement('li');

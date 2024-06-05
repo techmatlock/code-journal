@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', (): void => {
     const newData = renderEntry(data.entries[i]);
     $ulElement.append(newData);
   }
+
+  viewSwap(data.view);
+  toggleNoEntries();
 });
 
 const renderEntry = (entry: Journal): HTMLLIElement => {
