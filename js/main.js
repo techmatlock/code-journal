@@ -38,6 +38,10 @@ $form.addEventListener('submit', (event) => {
   data.nextEntryId++;
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
+  const newEntry = renderEntry(result);
+  $ulElement.appendChild(newEntry);
+  viewSwap('entries');
+  toggleNoEntries();
 });
 document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {

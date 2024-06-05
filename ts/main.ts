@@ -54,6 +54,11 @@ $form.addEventListener('submit', (event: Event): void => {
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 
   $form.reset();
+
+  const newEntry = renderEntry(result);
+  $ulElement.appendChild(newEntry);
+  viewSwap('entries');
+  toggleNoEntries();
 });
 
 document.addEventListener('DOMContentLoaded', (): void => {
