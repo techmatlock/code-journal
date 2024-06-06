@@ -60,6 +60,14 @@ button {
   padding-top: 1rem;
 }
 
+.delete-btn {
+  padding: 0;
+  background-color: #fff;
+  border: none;
+  color: #f8110f;
+  text-decoration: underline;
+}
+
 /* Entries */
 
 .new-btn {
@@ -73,7 +81,8 @@ button {
 }
 
 .entry-img {
-  max-width: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .entries-list {
@@ -84,4 +93,32 @@ button {
 
 .entries-link {
   cursor: pointer;
+}
+
+/* Modal */
+
+dialog {
+  background-color: #fff;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.confirm-btn {
+  background-color: #dc2625;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+}
+
+.cancel-btn {
+  background-color: #b6b6b6;
+  color: #292929;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
 }

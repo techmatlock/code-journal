@@ -14,7 +14,10 @@ const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
 const $entriesLink = document.querySelector('.entries-link');
 const $newBtn = document.querySelector('.new-btn');
+const $deleteBtn = document.querySelector('.delete-btn');
 const $entryTitle = document.querySelector('.entry-title');
+const $dialog = document.querySelector('dialog');
+const $modalActions = document.querySelector('.modal-actions');
 
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
@@ -24,7 +27,10 @@ if (!$formDiv) throw new Error('$formDiv does not exist.');
 if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
 if (!$entriesLink) throw new Error('$entriesLink does not exist.');
 if (!$newBtn) throw new Error('$newBtn does not exist.');
+if (!$deleteBtn) throw new Error('$deleteBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
+if (!$dialog) throw new Error('$dialog does not exist.');
+if (!$modalActions) throw new Error('$modalActions does not exist.');
 
 const renderEntry = (entry: Journal): HTMLLIElement => {
   const $outerLiElement = document.createElement('li');
@@ -150,7 +156,7 @@ $form.addEventListener('submit', (event: Event): void => {
 document.addEventListener('DOMContentLoaded', (): void => {
   for (let i = 0; i < data.entries.length; i++) {
     const newData = renderEntry(data.entries[i]);
-    $ulElement.prepend(newData);
+    $ulElement.appendChild(newData);
   }
 
   viewSwap(data.view);
@@ -158,6 +164,7 @@ document.addEventListener('DOMContentLoaded', (): void => {
 });
 
 $entriesLink.addEventListener('click', (): void => {
+  data.editing = null;
   viewSwap('entries');
 });
 
@@ -165,6 +172,7 @@ $newBtn.addEventListener('click', (): void => {
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryTitle.textContent = 'New Entry';
   $form.reset();
+  $deleteBtn.classList.add('hidden');
   viewSwap('entry-form');
 });
 
@@ -174,6 +182,7 @@ $ulElement.addEventListener('click', (event: Event): void => {
   $entryTitle.textContent = 'Edit Entry';
 
   if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
+    $deleteBtn.classList.remove('hidden');
     viewSwap('entry-form');
 
     const dataEntryId = Number(
@@ -193,5 +202,41 @@ $ulElement.addEventListener('click', (event: Event): void => {
         $photoPreview.setAttribute('src', data.editing.photoUrl);
       }
     }
+  }
+});
+
+$deleteBtn.addEventListener('click', (event: Event): void => {
+  event.preventDefault();
+
+  $dialog.showModal();
+});
+
+$modalActions.addEventListener('click', (event: Event): void => {
+  const $eventTarget = event.target as HTMLButtonElement;
+
+  if ($eventTarget.className === 'cancel-btn') {
+    $dialog.close();
+  }
+
+  if ($eventTarget.className === 'confirm-btn') {
+    const $allLiElements = document.querySelectorAll('li');
+    if (!$allLiElements) throw new Error('$allLiElements does not exist.');
+
+    // find and remove object from data.entries array
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing?.entryId) {
+        data.entries.splice(i, 1);
+      }
+    }
+    // find and remove li item from DOM tree
+    $allLiElements.forEach((li) => {
+      if (Number(li.getAttribute('data-entry-id')) === data.editing?.entryId) {
+        $ulElement.removeChild(li);
+        data.editing = null;
+        toggleNoEntries();
+        $dialog.close();
+        viewSwap('entries');
+      }
+    });
   }
 });

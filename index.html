@@ -61,7 +61,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="column-full row flex-end padding-lr">
+            <div class="column-full row flex-end padding-lr space-between">
+              <button class="delete-btn">Delete Entry</button>
               <button class="save-btn">Save</button>
             </div>
           </div>
@@ -78,6 +79,13 @@
           <li class="no-entries">No entries have been recorded.</li>
         </ul>
       </div>
+      <dialog>
+        <p>Are you sure you want to delete this entry?</p>
+        <div class="modal-actions row space-between">
+          <button class="cancel-btn">Cancel</button>
+          <button class="confirm-btn">Confirm</button>
+        </div>
+      </dialog>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
