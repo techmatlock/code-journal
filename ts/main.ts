@@ -17,6 +17,7 @@ const $newBtn = document.querySelector('.new-btn');
 const $deleteBtn = document.querySelector('.delete-btn');
 const $entryTitle = document.querySelector('.entry-title');
 const $dialog = document.querySelector('dialog');
+const $modalActions = document.querySelector('.modal-actions');
 
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
@@ -29,6 +30,7 @@ if (!$newBtn) throw new Error('$newBtn does not exist.');
 if (!$deleteBtn) throw new Error('$deleteBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
 if (!$dialog) throw new Error('$dialog does not exist.');
+if (!$modalActions) throw new Error('$modalActions does not exist.');
 
 const renderEntry = (entry: Journal): HTMLLIElement => {
   const $outerLiElement = document.createElement('li');
@@ -207,3 +209,13 @@ $deleteBtn.addEventListener('click', (event: Event): void => {
 
   $dialog.showModal();
 });
+
+$modalActions.addEventListener('click', (event: Event): void {
+  const $eventTarget = event.target as HTMLButtonElement;
+
+  console.log('$eventTarget:', $eventTarget);
+
+  if ($eventTarget.className === 'cancel-btn') {
+    $dialog.close();
+  }
+})
