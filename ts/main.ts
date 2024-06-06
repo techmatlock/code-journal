@@ -14,6 +14,7 @@ const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
 const $entriesLink = document.querySelector('.entries-link');
 const $newBtn = document.querySelector('.new-btn');
+const $deleteBtn = document.querySelector('.delete-btn');
 const $entryTitle = document.querySelector('.entry-title');
 
 if (!$photoInput) throw new Error('$photoInput does not exist.');
@@ -24,6 +25,7 @@ if (!$formDiv) throw new Error('$formDiv does not exist.');
 if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
 if (!$entriesLink) throw new Error('$entriesLink does not exist.');
 if (!$newBtn) throw new Error('$newBtn does not exist.');
+if (!$deleteBtn) throw new Error('$deleteBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
 
 const renderEntry = (entry: Journal): HTMLLIElement => {
@@ -165,6 +167,7 @@ $newBtn.addEventListener('click', (): void => {
   $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
   $entryTitle.textContent = 'New Entry';
   $form.reset();
+  $deleteBtn.classList.add('hidden');
   viewSwap('entry-form');
 });
 
@@ -174,6 +177,7 @@ $ulElement.addEventListener('click', (event: Event): void => {
   $entryTitle.textContent = 'Edit Entry';
 
   if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
+    $deleteBtn.classList.remove('hidden');
     viewSwap('entry-form');
 
     const dataEntryId = Number(

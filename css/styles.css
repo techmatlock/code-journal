@@ -60,6 +60,14 @@ button {
   padding-top: 1rem;
 }
 
+.delete-btn {
+  padding: 0;
+  background-color: #fff;
+  border: none;
+  color: #f8110f;
+  text-decoration: underline;
+}
+
 /* Entries */
 
 .new-btn {
