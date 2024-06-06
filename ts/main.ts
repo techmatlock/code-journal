@@ -156,7 +156,7 @@ $form.addEventListener('submit', (event: Event): void => {
 document.addEventListener('DOMContentLoaded', (): void => {
   for (let i = 0; i < data.entries.length; i++) {
     const newData = renderEntry(data.entries[i]);
-    $ulElement.prepend(newData);
+    $ulElement.appendChild(newData);
   }
 
   viewSwap(data.view);
@@ -210,12 +210,32 @@ $deleteBtn.addEventListener('click', (event: Event): void => {
   $dialog.showModal();
 });
 
-$modalActions.addEventListener('click', (event: Event): void {
+$modalActions.addEventListener('click', (event: Event): void => {
   const $eventTarget = event.target as HTMLButtonElement;
-
-  console.log('$eventTarget:', $eventTarget);
 
   if ($eventTarget.className === 'cancel-btn') {
     $dialog.close();
   }
-})
+
+  if ($eventTarget.className === 'confirm-btn') {
+    const $allLiElements = document.querySelectorAll('li');
+    if (!$allLiElements) throw new Error('$allLiElements does not exist.');
+
+    // find and remove object from data.entries array
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing?.entryId) {
+        data.entries.splice(i, 1);
+      }
+    }
+    // find and remove li item from DOM tree
+    $allLiElements.forEach((li) => {
+      if (Number(li.getAttribute('data-entry-id')) === data.editing?.entryId) {
+        $ulElement.removeChild(li);
+        data.editing = null;
+        toggleNoEntries();
+        $dialog.close();
+        viewSwap('entries');
+      }
+    });
+  }
+});

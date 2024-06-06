@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const $form = document.querySelector('.journal-form');
 const $photoInput = document.querySelector('.photo-input');
 const $photoPreview = document.querySelector('.form-img');
@@ -12,171 +12,177 @@ const $deleteBtn = document.querySelector('.delete-btn');
 const $entryTitle = document.querySelector('.entry-title');
 const $dialog = document.querySelector('dialog');
 const $modalActions = document.querySelector('.modal-actions');
-if (!$photoInput)
-    throw new Error('$photoInput does not exist.');
-if (!$photoPreview)
-    throw new Error('$photoPreview does not exist.');
-if (!$ulElement)
-    throw new Error('$ulElement does not exist.');
-if (!$noEntries)
-    throw new Error('$liElement does not exist.');
-if (!$formDiv)
-    throw new Error('$formDiv does not exist.');
-if (!$entriesDiv)
-    throw new Error('$entriesDiv does not exist.');
-if (!$entriesLink)
-    throw new Error('$entriesLink does not exist.');
-if (!$newBtn)
-    throw new Error('$newBtn does not exist.');
-if (!$deleteBtn)
-    throw new Error('$deleteBtn does not exist.');
-if (!$entryTitle)
-    throw new Error('$entryTitle does not exist.');
-if (!$dialog)
-    throw new Error('$dialog does not exist.');
-if (!$modalActions)
-    throw new Error('$modalActions does not exist.');
+if (!$photoInput) throw new Error('$photoInput does not exist.');
+if (!$photoPreview) throw new Error('$photoPreview does not exist.');
+if (!$ulElement) throw new Error('$ulElement does not exist.');
+if (!$noEntries) throw new Error('$liElement does not exist.');
+if (!$formDiv) throw new Error('$formDiv does not exist.');
+if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
+if (!$entriesLink) throw new Error('$entriesLink does not exist.');
+if (!$newBtn) throw new Error('$newBtn does not exist.');
+if (!$deleteBtn) throw new Error('$deleteBtn does not exist.');
+if (!$entryTitle) throw new Error('$entryTitle does not exist.');
+if (!$dialog) throw new Error('$dialog does not exist.');
+if (!$modalActions) throw new Error('$modalActions does not exist.');
 const renderEntry = (entry) => {
-    const $outerLiElement = document.createElement('li');
-    $outerLiElement.setAttribute('class', 'row');
-    $outerLiElement.setAttribute('data-entry-id', entry.entryId.toString());
-    const $div1 = document.createElement('div');
-    $div1.setAttribute('class', 'column-half padding-lr');
-    $outerLiElement.appendChild($div1);
-    const $img = document.createElement('img');
-    $img.setAttribute('class', 'entry-img');
-    $img.setAttribute('src', entry.photoUrl);
-    $img.setAttribute('alt', 'a placeholder image');
-    $outerLiElement.appendChild($div1);
-    $div1.appendChild($img);
-    const $div2 = document.createElement('div');
-    $div2.setAttribute('class', 'column-half padding-lr');
-    const $p = document.createElement('p');
-    $p.setAttribute('class', 'bold row space-between');
-    $p.textContent = entry.title;
-    const $pencil = document.createElement('i');
-    $pencil.setAttribute('class', 'fa-solid fa-pencil');
-    const $p2 = document.createElement('p');
-    $p2.textContent = entry.note;
-    $div2.appendChild($p);
-    $p.appendChild($pencil);
-    $div2.appendChild($p2);
-    $outerLiElement.appendChild($div2);
-    return $outerLiElement;
+  const $outerLiElement = document.createElement('li');
+  $outerLiElement.setAttribute('class', 'row');
+  $outerLiElement.setAttribute('data-entry-id', entry.entryId.toString());
+  const $div1 = document.createElement('div');
+  $div1.setAttribute('class', 'column-half padding-lr');
+  $outerLiElement.appendChild($div1);
+  const $img = document.createElement('img');
+  $img.setAttribute('class', 'entry-img');
+  $img.setAttribute('src', entry.photoUrl);
+  $img.setAttribute('alt', 'a placeholder image');
+  $outerLiElement.appendChild($div1);
+  $div1.appendChild($img);
+  const $div2 = document.createElement('div');
+  $div2.setAttribute('class', 'column-half padding-lr');
+  const $p = document.createElement('p');
+  $p.setAttribute('class', 'bold row space-between');
+  $p.textContent = entry.title;
+  const $pencil = document.createElement('i');
+  $pencil.setAttribute('class', 'fa-solid fa-pencil');
+  const $p2 = document.createElement('p');
+  $p2.textContent = entry.note;
+  $div2.appendChild($p);
+  $p.appendChild($pencil);
+  $div2.appendChild($p2);
+  $outerLiElement.appendChild($div2);
+  return $outerLiElement;
 };
 const toggleNoEntries = () => {
-    if (data.entries.length === 0) {
-        $noEntries.classList.remove('hidden');
-    }
-    else {
-        $noEntries.classList.add('hidden');
-    }
+  if (data.entries.length === 0) {
+    $noEntries.classList.remove('hidden');
+  } else {
+    $noEntries.classList.add('hidden');
+  }
 };
 const viewSwap = (view) => {
-    data.view = view;
-    if (view === 'entries') {
-        $formDiv.className = 'hidden';
-        $entriesDiv.className = '';
-    }
-    if (view === 'entry-form') {
-        $entriesDiv.className = 'hidden';
-        $formDiv.className = '';
-    }
+  data.view = view;
+  if (view === 'entries') {
+    $formDiv.className = 'hidden';
+    $entriesDiv.className = '';
+  }
+  if (view === 'entry-form') {
+    $entriesDiv.className = 'hidden';
+    $formDiv.className = '';
+  }
 };
 toggleNoEntries();
 $photoInput?.addEventListener('input', (event) => {
-    const eventTarget = event.target;
-    const photoUrl = eventTarget.value;
-    $photoPreview.setAttribute('src', photoUrl);
+  const eventTarget = event.target;
+  const photoUrl = eventTarget.value;
+  $photoPreview.setAttribute('src', photoUrl);
 });
 $form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const $formElements = $form.elements;
-    const title = $formElements.title.value;
-    const photoUrl = $formElements.photo.value;
-    const note = $formElements.notes.value;
-    const entryId = data.nextEntryId;
-    const result = {
-        title,
-        photoUrl,
-        note,
-        entryId,
-    };
-    $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
-    if (data.editing === null) {
-        const newEntry = renderEntry(result);
-        $ulElement.prepend(newEntry);
-        data.entries.unshift(result);
-        data.nextEntryId++;
+  event.preventDefault();
+  const $formElements = $form.elements;
+  const title = $formElements.title.value;
+  const photoUrl = $formElements.photo.value;
+  const note = $formElements.notes.value;
+  const entryId = data.nextEntryId;
+  const result = {
+    title,
+    photoUrl,
+    note,
+    entryId,
+  };
+  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  if (data.editing === null) {
+    const newEntry = renderEntry(result);
+    $ulElement.prepend(newEntry);
+    data.entries.unshift(result);
+    data.nextEntryId++;
+  } else {
+    const $allLiElements = document.querySelectorAll('li');
+    if (!$allLiElements) throw new Error('$allLiElements does not exist.');
+    result.entryId = data.editing.entryId;
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === result.entryId) {
+        data.entries[i] = result;
+      }
     }
-    else {
-        const $allLiElements = document.querySelectorAll('li');
-        if (!$allLiElements)
-            throw new Error('$allLiElements does not exist.');
-        result.entryId = data.editing.entryId;
-        for (let i = 0; i < data.entries.length; i++) {
-            if (data.entries[i].entryId === result.entryId) {
-                data.entries[i] = result;
-            }
-        }
-        const replacingEntry = renderEntry(result);
-        $allLiElements.forEach((li) => {
-            if (Number(li.getAttribute('data-entry-id')) === result.entryId) {
-                li.replaceWith(replacingEntry);
-            }
-        });
-        $entryTitle.textContent = 'New Entry';
-        data.editing = null;
-    }
-    viewSwap('entries');
-    toggleNoEntries();
-    $form.reset();
+    const replacingEntry = renderEntry(result);
+    $allLiElements.forEach((li) => {
+      if (Number(li.getAttribute('data-entry-id')) === result.entryId) {
+        li.replaceWith(replacingEntry);
+      }
+    });
+    $entryTitle.textContent = 'New Entry';
+    data.editing = null;
+  }
+  viewSwap('entries');
+  toggleNoEntries();
+  $form.reset();
 });
 document.addEventListener('DOMContentLoaded', () => {
-    for (let i = 0; i < data.entries.length; i++) {
-        const newData = renderEntry(data.entries[i]);
-        $ulElement.prepend(newData);
-    }
-    viewSwap(data.view);
-    toggleNoEntries();
+  for (let i = 0; i < data.entries.length; i++) {
+    const newData = renderEntry(data.entries[i]);
+    $ulElement.appendChild(newData);
+  }
+  viewSwap(data.view);
+  toggleNoEntries();
 });
 $entriesLink.addEventListener('click', () => {
-    viewSwap('entries');
+  viewSwap('entries');
 });
 $newBtn.addEventListener('click', () => {
-    $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
-    $entryTitle.textContent = 'New Entry';
-    $form.reset();
-    $deleteBtn.classList.add('hidden');
-    viewSwap('entry-form');
+  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $entryTitle.textContent = 'New Entry';
+  $form.reset();
+  $deleteBtn.classList.add('hidden');
+  viewSwap('entry-form');
 });
 $ulElement.addEventListener('click', (event) => {
-    const $eventTarget = event.target;
-    $entryTitle.textContent = 'Edit Entry';
-    if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
-        $deleteBtn.classList.remove('hidden');
-        viewSwap('entry-form');
-        const dataEntryId = Number($eventTarget.closest('li')?.getAttribute('data-entry-id'));
-        for (let i = 0; i < data.entries.length; i++) {
-            if (data.entries[i].entryId === dataEntryId) {
-                data.editing = data.entries[i];
-                const $formElements = $form.elements;
-                $formElements.title.value = data.editing.title;
-                $formElements.photo.value = data.editing.photoUrl;
-                $formElements.notes.value = data.editing.note;
-                $photoPreview.setAttribute('src', data.editing.photoUrl);
-            }
-        }
+  const $eventTarget = event.target;
+  $entryTitle.textContent = 'Edit Entry';
+  if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
+    $deleteBtn.classList.remove('hidden');
+    viewSwap('entry-form');
+    const dataEntryId = Number(
+      $eventTarget.closest('li')?.getAttribute('data-entry-id'),
+    );
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === dataEntryId) {
+        data.editing = data.entries[i];
+        const $formElements = $form.elements;
+        $formElements.title.value = data.editing.title;
+        $formElements.photo.value = data.editing.photoUrl;
+        $formElements.notes.value = data.editing.note;
+        $photoPreview.setAttribute('src', data.editing.photoUrl);
+      }
     }
+  }
 });
 $deleteBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    $dialog.showModal();
+  event.preventDefault();
+  $dialog.showModal();
 });
 $modalActions.addEventListener('click', (event) => {
-    const $eventTarget = event.target;
-    console.log('$eventTarget:', $eventTarget);
-    if ($eventTarget.className === 'cancel-btn') {
-        $dialog.close();
+  const $eventTarget = event.target;
+  if ($eventTarget.className === 'cancel-btn') {
+    $dialog.close();
+  }
+  if ($eventTarget.className === 'confirm-btn') {
+    const $allLiElements = document.querySelectorAll('li');
+    if (!$allLiElements) throw new Error('$allLiElements does not exist.');
+    // find and remove object from data.entries array
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing?.entryId) {
+        data.entries.splice(i, 1);
+      }
     }
+    // find and remove li item from DOM tree
+    $allLiElements.forEach((li) => {
+      if (Number(li.getAttribute('data-entry-id')) === data.editing?.entryId) {
+        $ulElement.removeChild(li);
+        data.editing = null;
+        toggleNoEntries();
+        $dialog.close();
+        viewSwap('entries');
+      }
+    });
+  }
 });
