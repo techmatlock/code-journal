@@ -10,6 +10,7 @@ const $entriesLink = document.querySelector('.entries-link');
 const $newBtn = document.querySelector('.new-btn');
 const $deleteBtn = document.querySelector('.delete-btn');
 const $entryTitle = document.querySelector('.entry-title');
+const $dialog = document.querySelector('dialog');
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
 if (!$ulElement) throw new Error('$ulElement does not exist.');
@@ -20,6 +21,7 @@ if (!$entriesLink) throw new Error('$entriesLink does not exist.');
 if (!$newBtn) throw new Error('$newBtn does not exist.');
 if (!$deleteBtn) throw new Error('$deleteBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
+if (!$dialog) throw new Error('$dialog does not exist.');
 const renderEntry = (entry) => {
   const $outerLiElement = document.createElement('li');
   $outerLiElement.setAttribute('class', 'row');
@@ -151,4 +153,8 @@ $ulElement.addEventListener('click', (event) => {
       }
     }
   }
+});
+$deleteBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  $dialog.showModal();
 });
