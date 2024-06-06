@@ -18,10 +18,6 @@ label {
   margin-bottom: 1rem;
 }
 
-button {
-  margin-top: 0.5rem;
-}
-
 .bold {
   font-weight: bold;
 }
@@ -92,6 +88,18 @@ button {
 }
 
 .entries-link {
+  cursor: pointer;
+}
+
+/* Search */
+
+.search-btn {
+  background-color: #4c2676;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
   cursor: pointer;
 }
 
