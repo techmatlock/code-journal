@@ -18,6 +18,8 @@ const $deleteBtn = document.querySelector('.delete-btn');
 const $entryTitle = document.querySelector('.entry-title');
 const $dialog = document.querySelector('dialog');
 const $modalActions = document.querySelector('.modal-actions');
+const $searchBtn = document.querySelector('.search-btn');
+const $searchInput = document.querySelector('.search-input');
 
 if (!$photoInput) throw new Error('$photoInput does not exist.');
 if (!$photoPreview) throw new Error('$photoPreview does not exist.');
@@ -31,6 +33,8 @@ if (!$deleteBtn) throw new Error('$deleteBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
 if (!$dialog) throw new Error('$dialog does not exist.');
 if (!$modalActions) throw new Error('$modalActions does not exist.');
+if (!$searchBtn) throw new Error('$searchBtn does not exist.');
+if (!$searchInput) throw new Error('$searchInput does not exist.');
 
 const renderEntry = (entry: Journal): HTMLLIElement => {
   const $outerLiElement = document.createElement('li');
@@ -238,5 +242,17 @@ $modalActions.addEventListener('click', (event: Event): void => {
         viewSwap('entries');
       }
     });
+  }
+});
+
+$searchBtn.addEventListener('click', (): void => {
+  const $searchElement = $searchInput as HTMLInputElement;
+  const search = $searchElement.value;
+
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].title === search) {
+      const result = renderEntry(data.entries[i]);
+      $ulElement.replaceWith(result);
+    }
   }
 });
