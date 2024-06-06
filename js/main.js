@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleNoEntries();
 });
 $entriesLink.addEventListener('click', () => {
+  data.editing = null;
   viewSwap('entries');
 });
 $newBtn.addEventListener('click', () => {

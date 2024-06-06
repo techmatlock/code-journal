@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', (): void => {
 });
 
 $entriesLink.addEventListener('click', (): void => {
+  data.editing = null;
   viewSwap('entries');
 });
 
