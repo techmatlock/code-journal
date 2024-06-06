@@ -9,7 +9,7 @@ interface Journal {
 interface Data {
   view: string;
   entries: Journal[];
-  editing: null;
+  editing: null | Journal;
   nextEntryId: number;
 }
 
