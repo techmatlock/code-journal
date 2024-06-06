@@ -6,7 +6,7 @@ const $ulElement = document.querySelector('.entries-list');
 const $noEntries = document.querySelector('.no-entries');
 const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
-const $anchorLink = document.querySelector('.entries-link');
+const $entriesLink = document.querySelector('.entries-link');
 const $newBtn = document.querySelector('.new-btn');
 const $entryTitle = document.querySelector('.entry-title');
 if (!$photoInput) throw new Error('$photoInput does not exist.');
@@ -15,7 +15,7 @@ if (!$ulElement) throw new Error('$ulElement does not exist.');
 if (!$noEntries) throw new Error('$liElement does not exist.');
 if (!$formDiv) throw new Error('$formDiv does not exist.');
 if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
-if (!$anchorLink) throw new Error('$anchorLink does not exist.');
+if (!$entriesLink) throw new Error('$entriesLink does not exist.');
 if (!$newBtn) throw new Error('$newBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
 const renderEntry = (entry) => {
@@ -89,8 +89,6 @@ $form.addEventListener('submit', (event) => {
     $ulElement.prepend(newEntry);
     data.entries.unshift(result);
     data.nextEntryId++;
-    viewSwap('entries');
-    toggleNoEntries();
   } else {
     const $allLiElements = document.querySelectorAll('li');
     if (!$allLiElements) throw new Error('$allLiElements does not exist.');
@@ -108,9 +106,9 @@ $form.addEventListener('submit', (event) => {
     });
     $entryTitle.textContent = 'New Entry';
     data.editing = null;
-    viewSwap('entries');
-    toggleNoEntries();
   }
+  viewSwap('entries');
+  toggleNoEntries();
   $form.reset();
 });
 document.addEventListener('DOMContentLoaded', () => {
@@ -121,14 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
   viewSwap(data.view);
   toggleNoEntries();
 });
-$anchorLink.addEventListener('click', () => {
+$entriesLink.addEventListener('click', () => {
   viewSwap('entries');
 });
 $newBtn.addEventListener('click', () => {
+  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $entryTitle.textContent = 'New Entry';
+  $form.reset();
   viewSwap('entry-form');
 });
 $ulElement.addEventListener('click', (event) => {
   const $eventTarget = event.target;
+  $entryTitle.textContent = 'Edit Entry';
   if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
     viewSwap('entry-form');
     const dataEntryId = Number(

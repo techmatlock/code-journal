@@ -12,7 +12,7 @@ const $ulElement = document.querySelector('.entries-list');
 const $noEntries = document.querySelector('.no-entries');
 const $formDiv = document.querySelector('div[data-view="entry-form"]');
 const $entriesDiv = document.querySelector('div[data-view="entries"]');
-const $anchorLink = document.querySelector('.entries-link');
+const $entriesLink = document.querySelector('.entries-link');
 const $newBtn = document.querySelector('.new-btn');
 const $entryTitle = document.querySelector('.entry-title');
 
@@ -22,7 +22,7 @@ if (!$ulElement) throw new Error('$ulElement does not exist.');
 if (!$noEntries) throw new Error('$liElement does not exist.');
 if (!$formDiv) throw new Error('$formDiv does not exist.');
 if (!$entriesDiv) throw new Error('$entriesDiv does not exist.');
-if (!$anchorLink) throw new Error('$anchorLink does not exist.');
+if (!$entriesLink) throw new Error('$entriesLink does not exist.');
 if (!$newBtn) throw new Error('$newBtn does not exist.');
 if (!$entryTitle) throw new Error('$entryTitle does not exist.');
 
@@ -121,9 +121,6 @@ $form.addEventListener('submit', (event: Event): void => {
 
     data.entries.unshift(result);
     data.nextEntryId++;
-
-    viewSwap('entries');
-    toggleNoEntries();
   } else {
     const $allLiElements = document.querySelectorAll('li');
     if (!$allLiElements) throw new Error('$allLiElements does not exist.');
@@ -144,9 +141,9 @@ $form.addEventListener('submit', (event: Event): void => {
     });
     $entryTitle.textContent = 'New Entry';
     data.editing = null;
-    viewSwap('entries');
-    toggleNoEntries();
   }
+  viewSwap('entries');
+  toggleNoEntries();
   $form.reset();
 });
 
@@ -160,16 +157,21 @@ document.addEventListener('DOMContentLoaded', (): void => {
   toggleNoEntries();
 });
 
-$anchorLink.addEventListener('click', (): void => {
+$entriesLink.addEventListener('click', (): void => {
   viewSwap('entries');
 });
 
 $newBtn.addEventListener('click', (): void => {
+  $photoPreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $entryTitle.textContent = 'New Entry';
+  $form.reset();
   viewSwap('entry-form');
 });
 
 $ulElement.addEventListener('click', (event: Event): void => {
   const $eventTarget = event.target as HTMLElement;
+
+  $entryTitle.textContent = 'Edit Entry';
 
   if ($eventTarget.matches('i[class="fa-solid fa-pencil"]')) {
     viewSwap('entry-form');
