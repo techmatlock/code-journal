@@ -168,6 +168,16 @@ document.addEventListener('DOMContentLoaded', (): void => {
 });
 
 $entriesLink.addEventListener('click', (): void => {
+  const $allLiElements = document.querySelectorAll('li');
+  const input = $searchInput as HTMLInputElement;
+  input.value = '';
+
+  $allLiElements.forEach((li) => {
+    console.log('li', li);
+    if (li.classList.contains('row')) {
+      li.classList.remove('hidden');
+    }
+  });
   data.editing = null;
   viewSwap('entries');
 });
@@ -251,8 +261,14 @@ $searchBtn.addEventListener('click', (): void => {
 
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].title === search) {
-      const result = renderEntry(data.entries[i]);
-      $ulElement.replaceWith(result);
+      const entryId = data.entries[i].entryId;
+
+      const $allLiElements = document.querySelectorAll('li');
+      $allLiElements.forEach((entry) => {
+        if (Number(entry.getAttribute('data-entry-id')) !== entryId) {
+          entry.classList.add('hidden');
+        }
+      });
     }
   }
 });
