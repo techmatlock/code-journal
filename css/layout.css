@@ -38,11 +38,6 @@
   flex-wrap: nowrap;
 }
 
-.search-input {
-  width: 10rem;
-  margin-top: 2rem;
-}
-
 @media screen and (width <= 375px) {
   .column-half {
     flex-basis: 100%;
@@ -72,9 +67,5 @@
 
   .column-half {
     flex-basis: 50%;
-  }
-
-  .search-input {
-    width: 20rem;
   }
 }

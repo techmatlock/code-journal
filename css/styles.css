@@ -103,6 +103,11 @@ label {
   cursor: pointer;
 }
 
+.search-input {
+  width: 10rem;
+  margin-top: 2rem;
+}
+
 /* Modal */
 
 dialog {
@@ -129,4 +134,10 @@ dialog::backdrop {
   border-radius: 5px;
   padding: 0.5rem 1rem;
   text-transform: uppercase;
+}
+
+@media screen and (width >= 768px) {
+  .search-input {
+    width: 20rem;
+  }
 }
